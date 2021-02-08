@@ -1,7 +1,8 @@
-import { Sprite } from 'pixi.js';
 import Scene from './Scene';
 import gsap from 'gsap';
 import Footer from '../components/Footer';
+import Button from '../components/Button';
+import Pokeball from '../components/Pokeball';
 
 export default class Play extends Scene {
   async onCreated() {
@@ -10,6 +11,19 @@ export default class Play extends Scene {
     footer.x = - window.innerWidth / 2;
     footer.y = window.innerHeight / 2 - footer.height;
     this.addChild(footer);
+
+    const pokeball = new Pokeball();
+    pokeball.y = -50
+    this.addChild(pokeball)
+
+    const button = new Button();
+    this.addChild(button);
+
+    button.on('click',async () => await pokeball.open())
+    pokeball.on(Pokeball.events.OPEN_START, () => button.hide())
+    pokeball.on(Pokeball.events.CLOSE_END, () => button.show())
+    pokeball.on(Pokeball.events.OPEN_END, async () => await pokeball.close())
+
   }
 
   /**
