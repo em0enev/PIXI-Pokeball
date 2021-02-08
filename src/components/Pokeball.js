@@ -62,14 +62,14 @@ export default class Pokeball extends Container {
     _addText() {
         const txt = new Text('text', { align: 'center', fontSize: 200, fill: '#FFFFFF' });
         txt.anchor.set(0.5)
-        txt.visible = false;
+        txt.alpha = 0;
         this.addChild(txt)
         return txt
     }
 
     async _shuffle() {
         let prev = 0;
-        this.text.visible = true;
+        this.text.alpha = 1;
 
         const dummy = { value: 0 };
         const steps = gsap.to(dummy, {
@@ -82,8 +82,8 @@ export default class Pokeball extends Container {
             }
         });
 
-        await gsap.to(steps, { duration: 5, progress: 1, ease: 'circ.out' })
-        this.text.visible = false;
+        await gsap.to(steps, { duration: 3, progress: 1, ease: 'circ.out' })
+        this.text.alpha = 0;
     }
 
     _setRandomText() {
