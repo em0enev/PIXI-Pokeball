@@ -16,7 +16,8 @@ export default class Pokeball extends Container {
             OPEN_END: 'open_end',
             OPEN_START: 'open_start',
             CLOSE_END: 'close_end',
-            CLOSE_START: 'close_start'
+            CLOSE_START: 'close_start',
+            SHUFFLE_END: 'shuffle_end'
         }
     }
 
@@ -32,7 +33,6 @@ export default class Pokeball extends Container {
     }
 
     async close() {
-        await this._shuffle()
         this.emit(Pokeball.events.CLOSE_START)
         
         const tlClose = gsap.timeline();
@@ -84,11 +84,11 @@ export default class Pokeball extends Container {
 
         await gsap.to(steps, { duration: 3, progress: 1, ease: 'circ.out' })
         this.text.alpha = 0;
+        this.emit(Pokeball.events.SHUFFLE_END)
     }
 
     _setRandomText() {
         this.text.text = Pokeball.pokemons.names[Math.floor(Math.random() * Pokeball.pokemons.names.length)];
-       
     }
 
     static get pokemons() {

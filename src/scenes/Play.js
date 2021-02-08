@@ -20,9 +20,11 @@ export default class Play extends Scene {
     this.addChild(button);
 
     button.on('click',async () => await pokeball.open())
+    button.on('click',async () => await pokeball._shuffle())
+
     pokeball.on(Pokeball.events.OPEN_START, () => button.hide())
     pokeball.on(Pokeball.events.CLOSE_END, () => button.show())
-    pokeball.on(Pokeball.events.OPEN_END, async () => await pokeball.close())
+    pokeball.on(Pokeball.events.SHUFFLE_END, async () => await pokeball.close())
 
   }
 
