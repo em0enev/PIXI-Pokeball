@@ -11,11 +11,11 @@ export default class Button extends Container {
     }
 
     show() {
-        this.visible = true;
+        this.alpha = 1;
     }
 
     hide() {
-        this.visible = false;
+        this.alpha = 0;
     }
 
     _addButton(){
